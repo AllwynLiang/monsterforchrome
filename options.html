@@ -1,0 +1,433 @@
+﻿<!doctype html><html><head><meta charset="gbk" />
+<title>Monster Options</title>
+<script type="text/javascript" src="jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="mst.lab.js"></script>
+<script type="text/javascript" src="mst.cfg.js"></script>
+
+<style type="text/css">
+body{
+	font-size:12px;
+	font-family:Tahoma;
+}
+ul,li{
+	list-style:none;
+	margin:0;
+	padding:0;
+}
+.c-tab{
+	*zoom:1;
+}
+.c-tab-ttl{
+	clear:both;
+	*zoom:1;
+}
+.c-tab-ttl ul{
+	overflow:hidden;
+}
+.c-tab-ttl li{
+	float:left;
+	_display:inline;
+	margin-right:2px;
+	cursor:pointer;
+	font-size:12px;
+	height:24px;
+	overflow:hidden;
+	line-height:23px;
+	*line-height:25px;
+	cursor:pointer;
+}
+.c-tab-ttl li a{
+	display:block;
+	float:left;
+	height:100%;
+}
+.c-tab-ttl li.current{
+	font-weight:700;
+}
+.c-tab-ttl a,.c-tab-ttl a:hover{
+	color:#4D4D4D;
+	text-decoration:none;
+}
+.c-tab-1{
+	position:relative;
+}
+.c-tab-1 .c-tab-ttl{
+	border-bottom:1px #D2DBEF solid;
+}
+.c-tab-1 .c-tab-ttl ul{
+	position:relative;
+	top:1px;
+	_zoom:1;
+}
+.c-tab-1 .c-tab-ttl li{
+}
+.c-tab-1 .c-tab-ttl a{
+	padding:0 10px;
+	-webkit-border-radius:3px;
+	border-radius:3px;
+	border:1px #D2DBEF solid;
+	background:#395890 url(chrome-extension://daknbamnfebjmigpadfpaiemffpfkaka/bg-gra.png) 0 bottom repeat;
+	color:#8AB0EA;
+}
+.c-tab-1 .c-tab-ttl .current a{
+	color:#14B;
+	background:#fff; 
+}
+/* 鼠标悬停 */
+.c-tab-1 .c-tab-ttl a:hover{
+
+}
+/* 当前项 */
+.c-tab-1 .c-tab-ttl .current a,
+.c-tab-1 .c-tab-ttl .current a:hover{
+	
+}
+.c-tab-1 .c-tab-ctt{
+	padding:10px;
+}
+
+.r-itm{
+	padding-left:12px;
+}
+.r-itm-tt{
+	margin:10px 0 5px;
+	padding-left:0;
+	color:#666;
+}
+.r-itm-tt hr{
+	display:inline-block;
+	width:80%;
+	vertical-align:middle;
+	border-top:1px #D2DBEF solid;
+}
+.f-hide{
+	display:none;
+}
+.f-no-ime{
+	ime-mode:disabled;
+	ime-mode:off;
+}
+.sk-all-block{
+	display:inline-block;
+	vertical-align:middle;
+}
+.sk-all-block a{
+	display:inline-block;
+	width:23px;
+	height:23px;
+	border:1px white solid;
+}
+.sk-all-block .current{
+	outline:1px #F64C00 solid;
+}
+.tips{
+	position:fixed;
+	right:5px;
+	top:5px;
+	padding:3px 5px 3px 8;
+	border-radius:2;
+	background:#fff;
+	border:1px solid #3297FD;
+	color:#1144BB;
+	-webkit-box-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+}
+.mst-footer,.mst-footer a{position:fixed;bottom:5px;font-size:9px;color:#aaa;text-decoration:none;}
+</style>
+</head>
+<body>
+<!-- 标签 -->
+	<div class="c-tab c-tab-1" id="J-tab">
+		<!-- 标签 标题 -->
+		<div class="c-tab-ttl"> 
+			<ul> 
+				<li class="current" rel="J-tab-options"><a href="#">配置信息</a></li>
+				<li rel="J-tab-skin"><a href="#">界面设置</a></li>
+			</ul>
+		</div>
+	<!-- /标签 标题 -->
+		<!-- 标签 内容 -->
+		<div class="c-tab-ctt" id="J-tab-options">
+		<!--
+			<div class="r-itm"><label>配置名称：<input type="text" id="m-cfgName" value="默认" /></label></div>
+			<div class="r-itm"><label>配置信息：<textarea id="J-cfg-txt" style="width:906px;height:22px;"></textarea></label></div>
+			<div class="r-itm"><button id="J-export-cfg">Export..</button></div>
+        -->
+			<div class="r-itm r-itm-tt">
+				最大规则<hr noshade="noshade" size="1" />
+			</div>
+			
+			<div class="r-itm"><label>最大CSS文件数：<input type="text" value="2" class="f-no-ime" id="m-MAX_LINKSTYLE_NUM" /></label></div>
+			<div class="r-itm"><label>最大JS文件数：<input type="text" value="3" id="m-MAX_SCRIPT_NUM" class="f-no-ime" /></label></div>
+			<div class="r-itm"><label>最大背景图数：<input type="text" value="6" id="m-MAX_CSSIMG_NUM" class="f-no-ime" /></label></div>
+			<div class="r-itm"><label>最大HTML标记个数：<input type="text" value="1000" id="m-MAX_ELEMENT_NUM" class="f-no-ime" /></label></div>
+            
+			<!-- <div class="r-itm"><label>最大CSS文件尺寸：<input type="text" value="2" id="m-maxCssSize" class="f-no-ime" /></label></div>
+			<div class="r-itm"><label>最大JS文件尺寸：<input type="text" value="" id="m-maxJsSize" class="f-no-ime" /></label></div>
+			-->
+			<div class="r-itm r-itm-tt">
+				编码规则<hr noshade="noshade" size="1" />
+			</div>
+			<!-- <div class="r-itm"><label><input type="checkbox" checked="checked" id="m-CHECK_LOWER_CASE" />禁止&quot;标记&quot;、&quot;属性名&quot;大写,如&lt;A&gt;,&lt;img 
+				SRC=&quot;url&quot; /&gt;</label></div> -->
+            <div class="r-itm"><label><input type="checkbox" id="m-CHECK_TAG_CLOSED" />检测未关闭标记；</label></div>
+			<!-- <div class="r-itm"><label><input type="checkbox" id="m-CHECK_ATTR_QUOT" />属性有且必须使用双引号；</label></div>
+			<div class="r-itm"><label><input type="checkbox" id="m-CHECK_SELF_CLOSE_TAG" />检测自闭合标记,如&lt;br/&gt;</label></div> -->
+			<div class="r-itm"><label><input type="checkbox" id="m-BANNED_ELEMENT_TYPE" />检测HTML5不支持的标记,如font,s,u</label></div>
+			<div class="r-itm"><label><input type="checkbox" id="m-CHECK_TITLE_INHEAD" checked="checked" />强制utf-8或gbk编码</label></div>
+			<div class="r-itm"><label><input type="checkbox" id="m-CHECK_SCRIPT_POS" />禁止javascript混合在HTML里面</label></div>
+			<div class="r-itm"><label><input type="checkbox" id="m-CHECK_STYLE_POS" />禁止inline style</label></div>
+            <div class="r-itm"><label><input type="checkbox" id="m-CHECK_INLINE_JS" />禁止标签里直接定义JS事件</label></div>
+			<div class="r-itm"><label><input type="checkbox" id="m-CHECK_STYLE_MEDIA" checked="checked" />&lt;style&gt;必须指定media</label></div>
+			<div class="r-itm"><label><input type="checkbox" id="m-CHECK_IMG_ALT" checked="checked" />&lt;img&gt;必须指定alt</label></div>
+			
+			<div class="r-itm r-itm-tt">
+				表单规则<hr noshade="noshade" size="1" />
+			</div>
+            <div class="r-itm"><label><input type="checkbox" id="m-CHECK_FORM_INFORM" />禁止form嵌套form</label></div>
+			<div class="r-itm"><label><input type="checkbox" checked="checked" id="m-CHECK_SUBMIT_INFORM" />form中有且只有一个submit标签</label></div>
+			<div class="r-itm"><label><input type="checkbox" id="m-CHECK_LABEL" />form下控件是否有对应的label标签</label></div>
+            <div class="r-itm"><label><input type="checkbox" id="m-NO_ID_SUBMIT" />禁止form标签中出现ID="submit"的标签</label></div>
+			
+			<div class="r-itm r-itm-tt">
+				其他规则<hr noshade="noshade" size="1" />
+			</div>
+            <div class="r-itm"><label><input type="checkbox" id="m-CHECK_COMPAT_MODE" />检测 doctype(compatMode) </label></div>
+			<div class="r-itm"><label><input type="checkbox" id="m-CHECK_HTML5_DTD" />强制使用HTML5 DTD</label></div>
+			<div class="r-itm"><label><input type="checkbox" id="m-CHECK_HTTP_HTTPS" />禁止https与http混用</label></div>
+			<div class="r-itm"><label><input type="checkbox" id="m-BAN_CSS_IMPORT" />禁止import CSS</label></div>
+			<div class="r-itm"><label><input type="checkbox" id="m-BAN_BLOCKIN_INLINE" />禁止内联标签嵌套块级标签，如&lt;a&gt;嵌套div</label></div>
+			<div class="r-itm"><label><input type="checkbox" id="m-NO_DUP_ID" />禁止重复的 ID</label></div>
+            <div class="r-itm"><label><input type="checkbox" id="m-CHECK_HTML_MINIFY" />禁止未压缩HTML</label></div>
+            <div class="r-itm"><label><input type="checkbox" id="m-CHECK_HTML_SIZE" />最大HTML文件尺寸</label></div>
+			<div class="r-itm"><label><input type="checkbox" id="m-CHECK_CSS_SIZE" />禁止未压缩CSS文件</label></div>
+			<div class="r-itm"><label><input type="checkbox" id="m-CHECK_JS_SIZE" />禁止未压缩JS文件</label></div>
+
+            <div class="r-itm"><label><input type="checkbox" id="m-CHECK_CSS_EXPRESSION" />禁止使用css expression</label></div>
+            <div class="r-itm"><label><input type="checkbox" id="m-CHECK_COOKIE_SIZE" />强制Cookie限制在30KB以内</label></div>
+            
+            <!-- <div class="r-itm"><label><input type="checkbox" id="m-CHECK_LTGT_STRING" />禁止&lt;、&gt;直接出现在内容中</label></div> -->
+
+			<div class="r-itm r-itm-tt">
+				<div class="r-itm">
+					<input type="button" value="保存" class="C-save-all" title="Save" /> 
+					<input type="button" value="还原默认设置" class="C-reset-all" title="Reset Defaults" />	
+                    <input type="button" value="清除自定义配置" class="C-clear-all" title="Clear Config" />		
+				</div>
+			</div>
+			
+		</div>
+		<!-- /标签 内容 -->
+		<!-- 标签 内容 -->
+		<div class="c-tab-ctt f-hide" id="J-tab-skin">
+			<div class="r-itm"><label>边框色：</label>
+				<div class="sk-all-block" id="J-set-ebdcolor">
+					<a href="#" style="background:fuchsia;"></a>
+					<a href="#" style="background:red;" class="current"></a>
+					<a href="#" style="background:green;"></a>
+					<a href="#" style="background:gray;"></a>
+					<a href="#" style="background:blue;"></a>
+				</div>
+			</div>
+			<div class="r-itm"><label>边框线型：</label>
+				<div class="sk-all-block" id="J-set-ebdstyle">
+					<a href="#" style="border:1px solid red;" class="current" title="Solid 实线"></a>
+					<a href="#" style="border:1px dotted red;" title="Dotted 点线"></a>
+					<a href="#" style="border:1px dashed red;" title="Dashed 虚线"></a>
+				</div>
+			</div>
+			<div class="r-itm">
+				<label>边框粗细：<input type="text" value="2" id="J-eBdWidth" /></label>
+			</div>
+            <div class="r-itm">
+				<label>背景设置：<input type="text" value="http://img06.taobaocdn.com/imgextra/i6/11589198/T2gRNcXjnEZtL1upjX.jpg_620x10000.jpg" id="J-eBgImg" title="可以设置成图片URL或background样式。" /> URL或样式。</label>
+			</div>
+			<div class="r-itm">
+				<input type="button" class="C-save-all" value="保存.." title="Save.." />
+				<input type="button" value="还原默认设置" class="C-reset-all" title="Reset Defaults" />
+			</div>
+		</div>
+		<!-- /标签 内容 -->
+	</div>
+	<!-- 标签 -->
+<div class="tips"></div>
+<div class="mst-footer"><a href="http://ued.alipay.com/" target="_blank">&copy;Alipay UED</a></div>
+<script type="text/javascript">
+    $(function () {
+
+        //init
+        function setEbdColor() {
+            $('#J-set-ebdcolor a').each(function (i, el) {
+
+                var e = $(el);
+                if (getVal('eBdColor')) {
+                    if (getVal('eBdColor') == e.css('backgroundColor')) {
+                        e.addClass('current');
+                    } else {
+                        e.removeClass('current');
+                    }
+                } else {
+                    if (CONFIG.eBdColor == e.css('backgroundColor')) {
+                        e.addClass('current');
+                    } else {
+                        e.removeClass('current');
+                    }
+                }
+            });
+        }
+        setEbdColor();
+        function setEbdStyle() {
+            $('#J-set-ebdstyle a').each(function (i, el) {
+                var e = $(el);
+                if (getVal('eBdStyle')) {
+                    if (getVal('eBdStyle') == e.css('borderStyle')) {
+                        e.addClass('current');
+                    } else {
+                        e.removeClass('current');
+                    }
+                } else {
+                    if (CONFIG.eBdStyle == e.css('borderStyle')) {
+                        e.addClass('current');
+                    } else {
+                        e.removeClass('current');
+                    }
+                }
+            });
+        }
+        setEbdStyle();
+
+
+        //load all options
+        function setInput() {
+            $('.c-tab-ctt input').each(function (i, el) {
+                var _id = el.id.split('-');
+                var _val = getVal(_id[1]);
+
+                if (el.type == 'text') {
+                    el.value = (_val) ? _val : '';
+
+                } else if (el.type == 'checkbox') {
+
+                    el.checked = (_val == 'true') ? true : false;
+
+                } else {
+
+                }
+                if (_id[1] == 'eBdWidth') {
+                    el.value = (typeof (_val) != 'undefined') ? _val : CONFIG.eBdWidth ;
+                };
+            });
+        }
+        setInput();
+
+        //save all options
+        function saveInput() {
+            $('.c-tab-ctt input').each(function (i, el) {
+
+                var _id = el.id.split('-')[1];
+                var _val = el.value || '';
+
+                if (el.type == 'text') {
+
+                    setVal(_id, _val);
+
+                } else if (el.type == 'checkbox') {
+
+                    setVal(_id, el.checked);
+
+                } else {
+
+                }
+
+            });
+            tips('保存好了！');
+        }
+
+        // 还原config
+        function restoreDefaults() {
+            for (var p in CONFIG) {
+                var eo = $('#m-' + p.toString())[0];
+                if (eo) {
+                    if (eo.type == 'text') {
+                        eo.value = (CONFIG[p]) ? CONFIG[p] : '';
+                    }
+                    else if (eo.type == 'checkbox') {
+                        eo.checked = CONFIG[p];
+                    }
+                    else {
+
+                    }
+
+                }
+            }
+
+            tips('所有项已恢复成默认值！');
+        }
+
+        function exportCfg() {
+            var str = 'CUSTOM_CONFIG={\n\t' +
+					export2str(CONFIG).join(',\n\t') +
+				'\n}';
+            $('#J-cfg-txt')[0].value = str;
+            $('#')
+        }
+
+        //tab event bind
+        var tt = $('.c-tab-ttl li');
+        var ct = $('.c-tab-ctt');
+
+        $('.c-tab-ttl li').click(function (e) {
+
+            tt.each(function (i, el) {
+                $(tt[i]).removeClass('current');
+                $(ct[i]).addClass('f-hide');
+            });
+            $(this).addClass('current');
+            $('#' + this.getAttribute('rel')).removeClass('f-hide');
+
+            return false;
+        });
+
+        //bind
+        $('#J-set-ebdcolor a').click(function (ev) {
+            var bg = $(this).css('backgroundColor');
+            setVal('eBdColor', bg);
+            setEbdColor();
+            return false;
+        });
+
+        $('#J-set-ebdstyle a').click(function (ev) {
+            var bs = $(this).css('borderStyle');
+            setVal('eBdStyle', bs);
+            setEbdStyle();
+            return false;
+        });
+
+        $('.C-save-all').click(function (ev) {
+            saveInput();
+        });
+
+        $('.C-reset-all').click(function (ev) {
+            restoreDefaults();
+        });
+
+        $('.C-clear-all').click(function (ev) {
+            chrome.extension.sendRequest({ action: 'clearConfig' }, function (response) {
+                tips(response.val);
+            });
+        });
+
+        $('#J-export-cfg').click(function (ev) {
+            exportCfg();
+        });
+
+        var _url = location.href;
+        if (_url.indexOf('?') != -1) {
+            $('.C-reset-all').click();
+            $('.C-save-all').click();
+            setVal('FIRST_USE', 'true');
+            window.close();
+        }
+    });
+</script>
+</body>
+</html>
