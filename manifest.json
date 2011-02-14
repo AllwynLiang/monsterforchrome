@@ -5,20 +5,21 @@
 	  "matches": [ "http://*/*", "https://*/*"],
 	  "run_at": "document_end"
 	} ],
-	"description": "Monster analyzes web pages and suggests ways to improve their performance based on a set of rules for high performance web pages.",
+	"description": "__MSG_description__",
 	"icons": {
         "16": "logo.png",
         "32": "logo.png",
         "48": "logo.png",
         "128": "logo.png"
 	},
+	"default_locale": "zh_CN",
 	"browser_action": {
 		"default_icon": "logo.png",
-		"default_title": "Monster for Chrome"
+		"default_title": "__MSG_title__"
 	},
 	"permissions": [ "tabs", "http://*/*", "https://*/*" ],
 	"background_page": "background.html",
 	"options_page":"options.html",
 	"name": "Monster",
-	"version": "1.0.0"
+	"version": "1.0.2"
 }

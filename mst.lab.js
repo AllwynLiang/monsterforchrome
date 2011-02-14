@@ -1,4 +1,4 @@
-﻿function log(o){
+function log(o){
 	var str='';
 	for(var a in o){
 		str+=a+':'+o[a]+'\r\n';
@@ -56,9 +56,9 @@ function getType(o) {
 var getValue = function (name, valueHandler, scope) {
     var thisObj = scope || window;
     chrome.extension.sendRequest({ action: 'getLocalStorage', name: name }, function (response) {
-        if (typeof (response.val) == 'undefined') {
-            //valueHandler.call(thisObj, eval('CONFIG.' + name));
-            valueHandler.call(thisObj, undefined);
+		if (typeof (response.val) == 'undefined') {
+            valueHandler.call(thisObj, eval('CONFIG.' + name));
+            //valueHandler.call(thisObj, undefined);
         } else {
             valueHandler.call(thisObj, response.val);
         }

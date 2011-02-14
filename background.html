@@ -1,24 +1,141 @@
-﻿<html>
+<html>
 <head>
 <script type="text/javascript" src="jquery-1.3.2.min.js"></script>
 <script type="text/javascript" src="mst.lab.js"></script>
-<script>
-function start(){
-	chrome.extension.onConnect.addListener(function(port) {
-		var curtab = chrome.tabs.getSelected(null, function(tab){
-			port.postMessage({action: "load", curTab: tab});
-		});
-		console.assert(port.name == "monster_lt");
-		
-		chrome.browserAction.onClicked.addListener(function(tab) {
-			port.postMessage({action: "click", tab: tab});
-		});
-	});
+<script type="text/javascript">
+/* See license.txt for terms of usage */
+// *************************************************************************************************
+
+var MonsterVersion = "Monster 1.0.0";
+var extensionURL = chrome.extension.getURL("");
+
+var active = false;
+
+// *************************************************************************************************
+
+function handleIconClick(tab)
+{
+    if (tab.url.indexOf("https://chrome.google.com/extensions") == 0 ||
+        tab.url.indexOf("chrome://") == 0){
+        alert("For security reasons extensions cannot run content scripts at this page, and therefore, Monster can't work here.");
+        
+        return;
+    }
+    
+    var isContentScriptActive = false;
+    
+    chrome.tabs.sendRequest( tab.id, {name: "MST_isActive"}, 
+    
+        function(response)
+        {
+            isContentScriptActive = true;
+            
+            if (response.value == "true")
+            {
+				chrome.tabs.sendRequest(tab.id, {name: "MST_toggleMonster"});
+            }
+            else
+            {
+                activateMonster(tab);
+                chrome.tabs.sendRequest(tab.id, {name: "MST_loadMonster"});
+            }
+        }
+    );
+    
+    setTimeout(function(){
+    
+        if (!isContentScriptActive)
+        {
+            activateMonster(tab);
+            if (confirm("Monster can't complete its activation because this page was open before the extension itself was enabled. The process will complete when you reload the page.\n\nPress ok to reload the page now, or cancel to reload it later."))
+            {
+                chrome.tabs.update(tab.id, {url: "javascript:window.location.reload()"});
+            }
+        }
+        
+    },500)
+};
+
+chrome.browserAction.onClicked.addListener(handleIconClick);
+
+// *************************************************************************************************
+
+function handleTabChange(tabId, selectInfo)
+{
+    var isUpdated = false;
+    
+    chrome.tabs.sendRequest(tabId, {name: "MST_isActive"}, 
+    
+        function(response)
+        {
+            isUpdated = true;
+            
+            if (response.value == "true")
+            {
+                enableIcon();
+                active = true;
+            }
+            else
+            {
+                disableIcon();
+                active = false;
+            }
+        }
+    );
+    
+    setTimeout(function(){
+    
+        chrome.tabs.get(tabId, function(tab){
+        
+            var title = tab.title || "";
+            if (!isUpdated && !title.indexOf("Monster") == 0)
+            {
+                disableIcon();
+                active = false;
+            }
+            
+        });
+           
+    },100);  
+};
+
+// *************************************************************************************************
+
+chrome.tabs.onSelectionChanged.addListener(handleTabChange);
+
+// *************************************************************************************************
+
+function handleUpdateTab(tabId, updateInfo, tab)
+{
+    if (updateInfo.status == "complete") return;
+    
+    handleTabChange(tabId, updateInfo);
 }
 
-chrome.extension.onRequest.addListener(
-  function (request, sender, sendResponse) {
-      if (request.action == 'all') {
+// memory leaking here
+//chrome.tabs.onUpdated.addListener(handleUpdateTab);
+
+// *************************************************************************************************
+
+chrome.extension.onRequest.addListener
+(
+    function(request, sender, sendResponse)
+    {
+        if (request.name == "MST_enableIcon")
+            enableIcon();
+        
+        else if (request.name == "MST_disableIcon")
+            disableIcon();
+            
+        else if (request.name == "MST_deactivate")
+        {
+            disableIcon();
+            
+            chrome.tabs.getSelected(null, function(tab){
+                deactivateMonster(tab);
+            });
+        }
+		else if (request.action == 'all') {
           if (request.cssArr) {
               mstBg.cssUrl = request.cssArr;
               sendResponse({ arr1: mstBg.cssUrl });
@@ -91,9 +208,43 @@ chrome.extension.onRequest.addListener(
           clearConfig();
           sendResponse({ val: '清除配置成功 ^^' });
       }
-  })
+
+    }
+
+);
+
+// *************************************************************************************************
+
+function enableIcon()
+{
+    chrome.browserAction.setTitle({title: MonsterVersion + " (On)"});
+    chrome.browserAction.setIcon({path:"logo.png"});
+};
+
+function disableIcon()
+{
+    chrome.browserAction.setTitle({title: MonsterVersion + " (Off)"});
+    chrome.browserAction.setIcon({path:"logo-disabled.png"});
+};
+
+// *************************************************************************************************
+
+function activateMonster(tab)
+{
+    chrome.tabs.update(tab.id, {url: "javascript:localStorage.setItem('Monster','1,1,"+extensionURL+"')"});
+    active = true;
+};
+
+function deactivateMonster(tab)
+{
+    chrome.tabs.update(tab.id, {url: "javascript:localStorage.removeItem('Monster')"});
+    active = false;
+};
+
+// *************************************************************************************************
 </script>
+
 </head>
-<body onload="start()">
+<body>
 </body>
 </html>

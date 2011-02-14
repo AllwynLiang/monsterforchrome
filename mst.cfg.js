@@ -1,7 +1,7 @@
-﻿/** 配置对象，用来配置检测的情况 */
+/** 配置对象，用来配置检测的情况 */
 var CONFIG = {
 	/** 最大允许页面的外部script元素个数 */
-	MAX_SCRIPT_NUM : 3, 
+	MAX_SCRIPT_NUM : 5, 
 	/** 
 	 * 是否检查https的链接
 	 * 检查的元素有iframe img embed
@@ -14,9 +14,9 @@ var CONFIG = {
 	/** 检查文件的encoding */
 	CHECK_ENCODING : true, 
 	/** 最大允许外部style文件的个数 */
-	MAX_LINKSTYLE_NUM : 2, 
+	MAX_LINKSTYLE_NUM : 4, 
 	/** 最大允许CSS背景图片文件个数 */
-	MAX_CSSIMG_NUM : 6, 
+	MAX_CSSIMG_NUM : 15, 
 	/** 元素和属性名小写检查 */
 	CHECK_LOWER_CASE : true, 
 	/** 禁止使用的包含样式特征的表现型元素 */
@@ -61,13 +61,23 @@ var CONFIG = {
 	/** js文件内容是否压缩 */
 	CHECK_JS_MINIFY: true,
 	/** 检测< >是否出现在内容中 */
-	CHECK_LTGT_STRING: false,
+	CHECK_LTGT_STRING: true,
 	/** 检测compatMode是否为CSS1Compat */
 	CHECK_COMPAT_MODE: true,
 	/** 禁止使用CSS Expression */
 	CHECK_CSS_EXPRESSION: true,
 	/** 检测Cookie大小 */
 	CHECK_COOKIE_SIZE: true,
+	/** 检测hasLayout */
+	CHECK_HASLAYOUT: true,
+	CHECK_TEXT_CONTENT:true,
+	CUSTOM_ERR_TEXT_CONTENT:['帐户','帐单','登陆'],
+	CUSTOM_RGT_TEXT_CONTENT:['账户','账单','登录'],
+	SHOW_TABINDEX: true,
+	CHECK_EMPTY_LINK:true,
+	CHECK_FOR_IE6:true,
+	CHECK_CUSTOM_PROPERTY: false,
+	CUSTOM_PROPERTY_EXCEPTION:['storetargetid','seed'],
     eBdWidth : 2,
     eBdStyle: 'dotted',
     eBdColor : 'red'
